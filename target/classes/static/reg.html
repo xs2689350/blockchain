@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+  function getsno()
+  {
+   if (window.XMLHttpRequest) 
+	   {// code for IE7+, Firefox, Chrome, Opera, Safari
+	      xmlhttp=new XMLHttpRequest(); 
+	   } 
+	  else {// code for IE6, IE5 
+	    xmlhttp=new ActiveXObject("Microsoft.XMLHTTP"); 
+	  } 
+	   //第二步，设定请求资源
+	   xmlhttp.open("post", "getmaxxh.do", false);
+	
+	   //第三步: 设定回调函数
+	   xmlhttp.onreadystatechange=function() 
+	   { 
+		   if (xmlhttp.readyState==4 && xmlhttp.status==200) 
+	       {  
+			   res = xmlhttp.responseText;
+	           document.getElementById("sno").value=res;  
+	       } 
+	   } 
+	  user=document.getElementById("userID").value;
+	  pwd=document.getElementById("pwd").value;
+	   //第四步：发送请求
+	   //若是post方法，必须设置头信息，明确请求体的数据格式
+	   xmlhttp.setRequestHeader("Content-type",
+"application/x-www-form-urlencoded");
+   xmlhttp.send("user="+user+"&pwd="+pwd);
+  }
+  
+	function reg() {
+		if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
+			xmlhttp = new XMLHttpRequest();
+		} else {// code for IE6, IE5 
+			xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+		}
+	
+	//第二步，设定请求资源
+		xmlhttp.open("post", "insert.do", false);
+		//第三步: 设定回调函数
+		xmlhttp.onreadystatechange = function() {
+			if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+				//deal with json	
+				if(xmlhttp.responseText=="yes")
+				{
+					alert("成功！");
+				}
+				else
+					{
+					alert("不成功！");
+					}
+			}
+		}
+		//第四步：发送请求
+		//若是post方法，必须设置头信息，明确请求体的数据格式
+		accountnum = document.getElementById("accountnum").value;
+		password = document.getElementById("password").value;
+		keyword = document.getElementById("keyword").value;
+		username = document.getElementById("username").value;
+		xmlhttp.setRequestHeader("Content-type",
+		"application/x-www-form-urlencoded");
+		xmlhttp.send("accountnum=" + accountnum + "&password=" + password + "&keyword=" + keyword + "&username=" + username );
+	}
+ 
+</script>
+</head>
+<body onload="getsno()">
+		  账   户:<input type="text" name="accountnum" id="accountnum"/>
+		  密   码:<input type="password" name="password" id="password"/>
+                     关键词:<input type="password" name="keyword" id="keyword"/>
+   		  名   字:<input type="text" name="username" id="username"/>
+   			 <input type="button" value="注册"  onclick="reg()"/>
+</body>
+</html>

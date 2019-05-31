@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xs.mapper.AccountServiceMapper">
+ 
+ <select id="login" parameterType="String" resultType="Account" >
+   select * from account where accountnum =#{0} and password = #{1}
+ </select> 
+ 
+  <insert id="insertAccount"  parameterType="Account" >
+  insert into account(username,password,privatekeyfile,accountnum,keyword)
+  values(#{username},#{password},#{privatekeyfile},#{accountnum},#{keyword} )
+ </insert>
+ 
+ <select id="getAccountByID" parameterType="Integer" resultType="Account" >
+   select * from account where id =#{0}
+ </select> 
+ 
+ 
+ 
+ <select id="getAllStudent" resultType="Student">
+   select * from student 
+ </select>
+ 
+ <select id="getStudentPage" resultType="Student">
+   select * from student #{0},#{1}
+ </select>
+ 
+ <select id="getStudent"  parameterType="String" resultType="Student">
+   select * from student where sno=#{sno}
+ </select>
+ 
+ <select id="findStuName"  parameterType="Student" resultType="Student">
+    select * from student where sname like '%${sname}%'
+ </select>
+
+ 
+ <update id="updateStudent"  parameterType="Student">
+  update student  set sname = #{sname},count =#{count},
+  pwd = #{pwd},logintime = #{logintime},IDNum = #{IDNum}
+  where  sno = #{sno}
+ </update>
+ 
+
+ <delete id="deleteStudent" parameterType="Student" >
+    delete from student where sno=#{sno}
+ </delete>
+ 
+ <select id="getMaxXH"  resultType="String">
+    select max(sno) from student
+ </select>
+
+ 
+ <select id="getTotal"  resultType="int">
+   select count(*) from student;
+ </select>
+ 
+</mapper>

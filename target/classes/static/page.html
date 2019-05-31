@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+  function check()
+  {
+   if (window.XMLHttpRequest) 
+	   {// code for IE7+, Firefox, Chrome, Opera, Safari
+	      xmlhttp=new XMLHttpRequest(); 
+	   } 
+	  else {// code for IE6, IE5 
+	    xmlhttp=new ActiveXObject("Microsoft.XMLHTTP"); 
+	  } 
+	   //第二步，设定请求资源
+	   xmlhttp.open("post", "viewtransactionbypage.do", false);
+	
+	   //第三步: 设定回调函数
+	   xmlhttp.onreadystatechange=function() 
+	   { 
+		   if (xmlhttp.readyState==4 && xmlhttp.status==200) 
+	       { 
+	           res=xmlhttp.responseText;
+	           json=eval("("+res+")");
+	           document.getElementById("my").innerHTML=display(json);
+	       } 
+	   } 
+	  num=document.getElementById("pagenum").value;
+
+	   //第四步：发送请求
+	   //若是post方法，必须设置头信息，明确请求体的数据格式
+	   xmlhttp.setRequestHeader("Content-type",
+"application/x-www-form-urlencoded");
+   xmlhttp.send("count="+num);
+  }
+ function display(json)
+  {
+	  content="<table align='center' border='1'>";
+	  content+="<th>交易哈希</th><th>卖家</th><th>买家</th><th>物品id</th><th>价钱</th>";
+	  for(i=0;i<json.length;i++)
+	  {
+        content+="<tr><td>"+json[i].transactionhash+"</td><td>"+json[i].fromaddr+"</td>"+json[i].toaddr+"</td>"+json[i].musicid+"</td>"+json[i].price+"</td></tr>";
+
+	  }
+	  content+="</table>";
+	  return content;
+  }
+
+
+
+  </script>
+
+</head>
+<body >
+	页数:<input type="text" name="num" id="pagenum"/>
+	<input type="button" value="查询"  onclick="check()"/>
+   <div id="my"></div>
+
+</body>
+</html>

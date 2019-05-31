@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+  function login()
+  {
+   if (window.XMLHttpRequest) 
+	   {// code for IE7+, Firefox, Chrome, Opera, Safari
+	      xmlhttp=new XMLHttpRequest(); 
+	   } 
+	  else {// code for IE6, IE5 
+	    xmlhttp=new ActiveXObject("Microsoft.XMLHTTP"); 
+	  } 
+	   //第二步，设定请求资源
+	   xmlhttp.open("post", "login.do", false);
+	
+	   //第三步: 设定回调函数
+	   xmlhttp.onreadystatechange=function() 
+	   { 
+		   if (xmlhttp.readyState==4 && xmlhttp.status==200) 
+	       { 
+	           if(xmlhttp.responseText=="yes")
+	        	   window.location.href="view.html";
+	           else
+	        		alert("信息不正确！");
+	       } 
+	   } 
+	  user=document.getElementById("userID").value;
+	  pwd=document.getElementById("pwd").value;
+	   //第四步：发送请求
+	   //若是post方法，必须设置头信息，明确请求体的数据格式
+	   xmlhttp.setRequestHeader("Content-type",
+"application/x-www-form-urlencoded");
+   xmlhttp.send("user="+user+"&pwd="+pwd);
+  }
+  
+ 
+</script>
+</head>
+<body>
+ 
+     用户名:<input type="text" name="user" id="userID"/>
+     密	   码:<input type="password" name="pwd" id="pwd"/>
+    <input type="button" value="登陆"  onclick="login()"/>
+    <a href="reg.html">
+    	<button>注册</button>
+	</a>
+   
+</body>
+</html>

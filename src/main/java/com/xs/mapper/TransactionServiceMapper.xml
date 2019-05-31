@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xs.mapper.TransactionServiceMapper">
+  <select id="userInfo" parameterType="String" resultType="Transaction" >
+   select * from transaction where fromaddr =#{0}
+ </select> 
+ 
+  <insert id="insertTransaction"  parameterType="Transaction" >
+  insert into Transaction(transactionhash,fromaddr,toaddr,musicid,price)
+  values(#{transactionhash},#{fromaddr},#{toaddr},#{musicid},#{price} )
+ </insert>
+ 
+
+ <select id="getAllTransaction" resultType="Transaction">
+   select * from transaction 
+ </select>
+ 
+  <select id="getTransactionPage" resultType="Transaction">
+   select * from transaction limit #{0},#{1}
+ </select>
+ 
+  <select id="getTotal"  resultType="int">
+   select count(*) from transaction;
+ </select>
+ 
+</mapper>

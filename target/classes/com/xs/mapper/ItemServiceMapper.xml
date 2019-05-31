@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xs.mapper.MusicServiceMapper">
+ 
+ <select id="getUserItems" parameterType="Integer" resultType="Item" >
+   select * from item where userid =#{0}
+ </select> 
+ 
+  <insert id="insertItem"  parameterType="Item" >
+  insert into item(itemid,itemname,userid,path,price)
+  values(#{itemid},#{itemname},#{userid},#{path},#{price} )
+ </insert>
+ 
+
+ <select id="getAllItems" resultType="Item">
+   select * from item 
+ </select>
+  
+  <select id="getItemPage" resultType="Item">
+   select * from transaction limit #{0},#{1}
+ </select>
+ 
+  <select id="getTotal"  resultType="int">
+   select count(*) from item 
+ </select>
+
+ 
+</mapper>
